@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-tailwind-starter",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "cleanup": "nuxt cleanup",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.4.3",
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@headlessui/vue": "^1.7.16",
+    "@iconify-json/heroicons": "^1.1.15",
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/color-mode": "^3.3.2",
+    "@nuxtjs/tailwindcss": "^6.10.1",
+    "@popperjs/core": "^2.11.8",
+    "@prisma/client": "5.7.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@trpc/client": "^10.44.1",
+    "@trpc/server": "^10.44.1",
+    "eslint": "^8.55.0",
+    "lint-staged": "^15.2.0",
+    "nuxt": "^3.8.2",
+    "nuxt-headlessui": "^1.1.4",
+    "nuxt-icon": "^0.6.7",
+    "prisma": "^5.7.0",
+    "simple-git-hooks": "^2.9.0",
+    "tailwind-merge": "^2.1.0",
+    "trpc-nuxt": "^0.10.15",
+    "vue": "^3.3.11",
+    "vue-router": "^4.2.5",
+    "zod": "^3.22.4"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
