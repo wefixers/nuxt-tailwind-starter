@@ -1,8 +1,13 @@
+// @ts-check
 import antfu from '@antfu/eslint-config'
+import withNuxt from './.nuxt/eslint.config.mjs'
 
-export default antfu({
-  rules: {
-    'curly': ['error', 'multi-line'],
-    'node/prefer-global/process': 'off',
-  },
-})
+export default withNuxt(
+  antfu({
+    typescript: true,
+    vue: true,
+    rules: {
+      curly: ['error', 'multi-line', 'consistent'],
+    },
+  }),
+)

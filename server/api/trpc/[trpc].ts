@@ -6,11 +6,15 @@ export default createNuxtApiHandler({
   router: appRouter,
   createContext,
   onError({ path, error }) {
-    if (process.dev) {
+    if (import.meta.dev) {
       console.error(`❌ tRPC failed on ${path}: ${error}`)
     }
     else if (error.code === 'INTERNAL_SERVER_ERROR') {
       console.error('Something went wrong', error)
+    }
+
+    if (!import.meta.dev) {
+      delete error.stack
     }
   },
 })

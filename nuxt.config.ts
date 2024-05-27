@@ -1,36 +1,102 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: [
+    // Lint
+    '@nuxt/eslint',
+
+    // Utils
+    '@vueuse/nuxt',
+
+    // i18n
+    '@nuxtjs/i18n',
+
+    // UI modules
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/tailwindcss',
+    'nuxt-headlessui',
+    'nuxt-icon',
+  ],
+
   app: {
+    buildAssetsDir: '/_assets/',
     rootId: 'app',
-    head: {
-      link: [
-        { rel: 'icon', href: '/favicon.ico' },
-        { rel: 'preconnect', href: 'https://rsms.me/' },
-        { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
-      ],
+  },
+
+  googleFonts: {
+    families: {
+      Inter: '100..900',
     },
   },
 
-  vite: {
-    $client: {
-      build: {
-        rollupOptions: {
-          output: {
-            assetFileNames: '_nuxt/[hash][extname]',
-            chunkFileNames: '_nuxt/[hash].js',
-            entryFileNames: '_nuxt/[hash].js',
-          },
-        },
-      },
+  colorMode: {
+    classSuffix: '',
+  },
+
+  /**
+   * Enable `~/components/` everywhere in `~/pages/`
+   */
+  components: [
+    {
+      path: '~/pages',
+      pattern: '*/components/**',
+      extensions: ['.vue'],
+      pathPrefix: false,
+    },
+    '~/components',
+  ],
+
+  /**
+   * Remove any components routes
+   */
+  hooks: {
+    'pages:extend': function (pages) {
+      for (let i = pages.length - 1; i >= 0; i--) {
+        if (pages[i].path.includes('/components/')) {
+          pages.splice(i, 1)
+        }
+      }
+    },
+  },
+
+  eslint: {
+    config: {
+      standalone: false,
     },
   },
 
   build: {
-    transpile: ['trpc-nuxt'],
+    transpile: [
+      '@popperjs/core',
+      '@headlessui/vue',
+      'trpc-nuxt',
+    ],
   },
 
-  typescript: {
-    shim: false,
+  vite: {
+    $server: {
+      build: {
+        rollupOptions: {
+          output: {
+            // hashCharacters: 'base36',
+            chunkFileNames: '_assets/[hash].js',
+            assetFileNames: '_assets/[hash][extname]',
+          },
+        },
+      },
+    },
+    $client: {
+      build: {
+        rollupOptions: {
+          output: {
+            // hashCharacters: 'base36',
+            entryFileNames: '_assets/[hash].js',
+            chunkFileNames: '_assets/[hash].js',
+            assetFileNames: '_assets/[hash][extname]',
+          },
+        },
+      },
+    },
   },
 
   devtools: {

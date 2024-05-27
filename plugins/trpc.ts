@@ -7,8 +7,8 @@ export default defineNuxtPlugin(() => {
     links: [
       loggerLink({
         enabled: (opts) => {
-          if (import.meta.env.DEV) {
-            return !import.meta.env.SSR || (opts.direction === 'down' && opts.result instanceof Error)
+          if (import.meta.dev) {
+            return import.meta.client || (opts.direction === 'down' && opts.result instanceof Error)
           }
 
           return false

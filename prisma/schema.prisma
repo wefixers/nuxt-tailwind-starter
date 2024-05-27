@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
 }
 
 /// The {@link User} model represents a user of the application.
@@ -28,10 +28,8 @@ model User {
 }
 
 model Account {
-  id String @id @default(cuid())
-
-  userId String
-
+  id                String  @id @default(cuid())
+  userId            String
   type              String
   provider          String
   providerAccountId String
@@ -43,25 +41,29 @@ model Account {
   id_token          String?
   session_state     String?
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id String @id @default(cuid())
-
-  userId String
-
+  id           String   @id @default(cuid())
+  userId       String
   sessionToken String   @unique
   expires      DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
   identifier String
-  token      String   @unique
+  token      String
   expires    DateTime
 
   @@unique([identifier, token])
