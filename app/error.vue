@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 
-defineProps<{
-  error: NuxtError
-}>()
+const props = defineProps<{ error: NuxtError }>()
 
 useSeoMeta({
   title: 'Page not found',
@@ -15,6 +13,10 @@ useHead({
     lang: 'en',
   },
 })
+
+const message = computed(() =>
+  import.meta.dev ? props.error.message : `Sorry, we couldn’t find the page you’re looking for.`,
+)
 </script>
 
 <template>
@@ -27,7 +29,7 @@ useHead({
         Page not found
       </h1>
       <p class="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">
-        Sorry, we couldn’t find the page you’re looking for.
+        {{ message }}
       </p>
       <div class="flex items-center justify-center mt-10 gap-x-6">
         <a href="/" class="rounded-md bg-pink-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600">

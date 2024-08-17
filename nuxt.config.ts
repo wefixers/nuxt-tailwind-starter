@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2024-07-08',
+
+  future: {
+    compatibilityVersion: 4,
+  },
+
   modules: [
     // Lint
     '@nuxt/eslint',
@@ -11,16 +17,21 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
 
     // UI modules
+    '@nuxt/icon',
     '@nuxtjs/google-fonts',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
     'nuxt-headlessui',
-    'nuxt-icon',
   ],
 
   app: {
     buildAssetsDir: '/_assets/',
-    rootId: 'app',
+    rootAttrs: {
+      id: 'app',
+    },
+    head: {
+      title: 'Website Title',
+    },
   },
 
   googleFonts: {
@@ -52,7 +63,7 @@ export default defineNuxtConfig({
   hooks: {
     'pages:extend': function (pages) {
       for (let i = pages.length - 1; i >= 0; i--) {
-        if (pages[i].path.includes('/components/')) {
+        if (pages[i]!.path.includes('/components/')) {
           pages.splice(i, 1)
         }
       }

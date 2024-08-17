@@ -1,7 +1,7 @@
 import type { ZodIssue } from 'zod'
 import { TRPCClientError } from '@trpc/client'
 import type { AnyProcedure, AnyRouter, inferRouterInputs, inferRouterOutputs } from '@trpc/server'
-import type { AppRouter } from '~/server/trpc/routers'
+import type { AppRouter } from '~~/server/trpc/routers'
 
 export type RouterInput = inferRouterInputs<AppRouter>
 export type RouterOutput = inferRouterOutputs<AppRouter>
